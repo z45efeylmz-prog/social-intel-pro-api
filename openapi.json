@@ -1,0 +1,1348 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SocialIntel Pro API",
+    "description": "Real-time Social Media Trends, Viral Audio Radar, Influencer Authenticity & Virality Intelligence Engine.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "General"
+        ],
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "General"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/viral-trends": {
+      "get": {
+        "tags": [
+          "Viral Radar"
+        ],
+        "summary": "Get Breakout Audio & Viral Hashtags",
+        "description": "Returns trending sounds with 24-hour growth velocity, high-retention video hook formulas, and fast-rising hashtags.",
+        "operationId": "get_viral_trends_v1_viral_trends_get",
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Source platform: 'tiktok', 'instagram', or 'all'",
+              "default": "all",
+              "title": "Platform"
+            },
+            "description": "Source platform: 'tiktok', 'instagram', or 'all'"
+          },
+          {
+            "name": "niche",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Content category: 'tech', 'fitness', 'finance', 'lifestyle', or 'all'",
+              "default": "all",
+              "title": "Niche"
+            },
+            "description": "Content category: 'tech', 'fitness', 'finance', 'lifestyle', or 'all'"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViralTrendsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/influencer/audit": {
+      "get": {
+        "tags": [
+          "Influencer Intelligence"
+        ],
+        "summary": "Audit Creator Authenticity & Engagement",
+        "description": "Analyzes follower quality, true Engagement Rate (ER), bot probability, and commercial advertising safety.",
+        "operationId": "audit_influencer_v1_influencer_audit_get",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Creator username/handle (without @)",
+              "examples": [
+                "cristiano"
+              ],
+              "title": "Username"
+            },
+            "description": "Creator username/handle (without @)"
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Target platform: 'instagram', 'tiktok', 'youtube'",
+              "default": "instagram",
+              "title": "Platform"
+            },
+            "description": "Target platform: 'instagram', 'tiktok', 'youtube'"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InfluencerAuditResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/niche-leaders": {
+      "get": {
+        "tags": [
+          "Discovery"
+        ],
+        "summary": "Discover Top Creators by Niche",
+        "description": "Returns verified fast-growing micro & macro creators filtered by category.",
+        "operationId": "get_niche_leaders_v1_niche_leaders_get",
+        "parameters": [
+          {
+            "name": "niche",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Category: 'tech', 'fitness', 'finance', 'fashion'",
+              "default": "tech",
+              "title": "Niche"
+            },
+            "description": "Category: 'tech', 'fitness', 'finance', 'fashion'"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NicheLeadersResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/video/virality-predictor": {
+      "post": {
+        "tags": [
+          "AI Predictive Intelligence"
+        ],
+        "summary": "Predict Short-Form Video Virality & Loop Retention",
+        "description": "Analyzes psychological hook power, duration loop dynamics, and audio synergy to forecast virality score (0-100).",
+        "operationId": "predict_video_virality_v1_video_virality_predictor_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ViralityPredictionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViralityPredictionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/competitor/compare": {
+      "get": {
+        "tags": [
+          "Influencer Intelligence"
+        ],
+        "summary": "Compare Two Competing Creators Head-to-Head",
+        "description": "Performs an algorithmic A/B audience quality comparison and provides agency sponsorship recommendation.",
+        "operationId": "compare_competitors_v1_competitor_compare_get",
+        "parameters": [
+          {
+            "name": "creator_a",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "First creator handle",
+              "examples": [
+                "mkbhd"
+              ],
+              "title": "Creator A"
+            },
+            "description": "First creator handle"
+          },
+          {
+            "name": "creator_b",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Second creator handle",
+              "examples": [
+                "techlead"
+              ],
+              "title": "Creator B"
+            },
+            "description": "Second creator handle"
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Target platform: 'instagram', 'tiktok'",
+              "default": "instagram",
+              "title": "Platform"
+            },
+            "description": "Target platform: 'instagram', 'tiktok'"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitorCompareResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/influencer/demographics": {
+      "get": {
+        "tags": [
+          "Influencer Intelligence"
+        ],
+        "summary": "Estimate Audience Demographics & Geography",
+        "description": "Algorithmic estimation of audience geographic distribution, gender split, and age brackets based on creator signals.",
+        "operationId": "get_influencer_demographics_v1_influencer_demographics_get",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Creator username",
+              "examples": [
+                "mkbhd"
+              ],
+              "title": "Username"
+            },
+            "description": "Creator username"
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Target platform: 'instagram', 'tiktok', 'youtube'",
+              "default": "instagram",
+              "title": "Platform"
+            },
+            "description": "Target platform: 'instagram', 'tiktok', 'youtube'"
+          },
+          {
+            "name": "niche",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Category: tech, finance, beauty, fitness, etc.",
+              "default": "tech",
+              "title": "Niche"
+            },
+            "description": "Category: tech, finance, beauty, fitness, etc."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemographicsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/influencer/growth-history": {
+      "get": {
+        "tags": [
+          "Influencer Intelligence"
+        ],
+        "summary": "30-Day Follower History & Bot Spike Anomaly Detection",
+        "description": "Tracks 30-day daily follower velocity, flags unnatural overnight bot spikes, and generates safety audit score.",
+        "operationId": "get_growth_history_v1_influencer_growth_history_get",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Creator username",
+              "examples": [
+                "mkbhd"
+              ],
+              "title": "Username"
+            },
+            "description": "Creator username"
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Platform",
+              "default": "instagram",
+              "title": "Platform"
+            },
+            "description": "Platform"
+          },
+          {
+            "name": "period_days",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 90,
+              "minimum": 7,
+              "description": "Period in days (7 to 90)",
+              "default": 30,
+              "title": "Period Days"
+            },
+            "description": "Period in days (7 to 90)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoricalGrowthResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/influencer/audit/report": {
+      "get": {
+        "tags": [
+          "Influencer Intelligence"
+        ],
+        "summary": "Generate White-Label Audit Dossier (HTML / PDF Print)",
+        "description": "Generates an executive, print-ready HTML/PDF white-label influencer audit report for marketing agencies and brand sponsors.",
+        "operationId": "get_agency_audit_report_v1_influencer_audit_report_get",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Creator username",
+              "examples": [
+                "mkbhd"
+              ],
+              "title": "Username"
+            },
+            "description": "Creator username"
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Platform: instagram, tiktok",
+              "default": "instagram",
+              "title": "Platform"
+            },
+            "description": "Platform: instagram, tiktok"
+          },
+          {
+            "name": "niche",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Category: tech, fitness, finance, etc.",
+              "default": "tech",
+              "title": "Niche"
+            },
+            "description": "Category: tech, fitness, finance, etc."
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Output format: 'html' (print-ready) or 'json'",
+              "default": "html",
+              "title": "Format"
+            },
+            "description": "Output format: 'html' (print-ready) or 'json'"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AgeBracket": {
+        "properties": {
+          "bracket": {
+            "type": "string",
+            "title": "Bracket"
+          },
+          "percentage": {
+            "type": "number",
+            "title": "Percentage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "bracket",
+          "percentage"
+        ],
+        "title": "AgeBracket"
+      },
+      "AudienceDemographics": {
+        "properties": {
+          "top_countries": {
+            "items": {
+              "$ref": "#/components/schemas/CountryShare"
+            },
+            "type": "array",
+            "title": "Top Countries"
+          },
+          "gender_split": {
+            "$ref": "#/components/schemas/GenderShare"
+          },
+          "age_distribution": {
+            "items": {
+              "$ref": "#/components/schemas/AgeBracket"
+            },
+            "type": "array",
+            "title": "Age Distribution"
+          },
+          "primary_language": {
+            "type": "string",
+            "title": "Primary Language"
+          },
+          "confidence_score": {
+            "type": "integer",
+            "title": "Confidence Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "top_countries",
+          "gender_split",
+          "age_distribution",
+          "primary_language",
+          "confidence_score"
+        ],
+        "title": "AudienceDemographics"
+      },
+      "CompetitorCompareResponse": {
+        "properties": {
+          "compared_at": {
+            "type": "string",
+            "title": "Compared At"
+          },
+          "creator_a": {
+            "$ref": "#/components/schemas/CreatorBrief"
+          },
+          "creator_b": {
+            "$ref": "#/components/schemas/CreatorBrief"
+          },
+          "winner_username": {
+            "type": "string",
+            "title": "Winner Username",
+            "description": "The creator with superior ROI and audience quality"
+          },
+          "engagement_advantage_pct": {
+            "type": "number",
+            "title": "Engagement Advantage Pct",
+            "description": "Difference in engagement rate"
+          },
+          "authenticity_advantage_points": {
+            "type": "integer",
+            "title": "Authenticity Advantage Points",
+            "description": "Difference in audience safety score"
+          },
+          "agency_verdict": {
+            "type": "string",
+            "title": "Agency Verdict",
+            "description": "Clear strategic recommendation for sponsor brands"
+          }
+        },
+        "type": "object",
+        "required": [
+          "compared_at",
+          "creator_a",
+          "creator_b",
+          "winner_username",
+          "engagement_advantage_pct",
+          "authenticity_advantage_points",
+          "agency_verdict"
+        ],
+        "title": "CompetitorCompareResponse"
+      },
+      "CountryShare": {
+        "properties": {
+          "country_code": {
+            "type": "string",
+            "title": "Country Code"
+          },
+          "country_name": {
+            "type": "string",
+            "title": "Country Name"
+          },
+          "percentage": {
+            "type": "number",
+            "title": "Percentage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "country_code",
+          "country_name",
+          "percentage"
+        ],
+        "title": "CountryShare"
+      },
+      "CreatorBrief": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "followers": {
+            "type": "integer",
+            "title": "Followers"
+          },
+          "engagement_rate_pct": {
+            "type": "number",
+            "title": "Engagement Rate Pct"
+          },
+          "authenticity_score": {
+            "type": "integer",
+            "title": "Authenticity Score"
+          },
+          "risk_level": {
+            "type": "string",
+            "title": "Risk Level"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "followers",
+          "engagement_rate_pct",
+          "authenticity_score",
+          "risk_level"
+        ],
+        "title": "CreatorBrief"
+      },
+      "DailyGrowthPoint": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "Date"
+          },
+          "followers": {
+            "type": "integer",
+            "title": "Followers"
+          },
+          "daily_change": {
+            "type": "integer",
+            "title": "Daily Change"
+          },
+          "unnatural_spike": {
+            "type": "boolean",
+            "title": "Unnatural Spike"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "followers",
+          "daily_change",
+          "unnatural_spike"
+        ],
+        "title": "DailyGrowthPoint"
+      },
+      "DemographicsResponse": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "platform": {
+            "type": "string",
+            "title": "Platform"
+          },
+          "analyzed_at": {
+            "type": "string",
+            "title": "Analyzed At"
+          },
+          "cached": {
+            "type": "boolean",
+            "title": "Cached"
+          },
+          "demographics": {
+            "$ref": "#/components/schemas/AudienceDemographics"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "platform",
+          "analyzed_at",
+          "cached",
+          "demographics"
+        ],
+        "title": "DemographicsResponse"
+      },
+      "GenderShare": {
+        "properties": {
+          "male_pct": {
+            "type": "number",
+            "title": "Male Pct"
+          },
+          "female_pct": {
+            "type": "number",
+            "title": "Female Pct"
+          },
+          "other_pct": {
+            "type": "number",
+            "title": "Other Pct",
+            "default": 0.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "male_pct",
+          "female_pct"
+        ],
+        "title": "GenderShare"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HistoricalGrowthResponse": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "platform": {
+            "type": "string",
+            "title": "Platform"
+          },
+          "period_days": {
+            "type": "integer",
+            "title": "Period Days"
+          },
+          "analyzed_at": {
+            "type": "string",
+            "title": "Analyzed At"
+          },
+          "baseline_followers": {
+            "type": "integer",
+            "title": "Baseline Followers"
+          },
+          "current_followers": {
+            "type": "integer",
+            "title": "Current Followers"
+          },
+          "net_growth": {
+            "type": "integer",
+            "title": "Net Growth"
+          },
+          "growth_rate_pct": {
+            "type": "number",
+            "title": "Growth Rate Pct"
+          },
+          "bot_spike_detected": {
+            "type": "boolean",
+            "title": "Bot Spike Detected"
+          },
+          "suspicious_dates": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Suspicious Dates"
+          },
+          "growth_verdict": {
+            "type": "string",
+            "title": "Growth Verdict"
+          },
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/DailyGrowthPoint"
+            },
+            "type": "array",
+            "title": "History"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "platform",
+          "period_days",
+          "analyzed_at",
+          "baseline_followers",
+          "current_followers",
+          "net_growth",
+          "growth_rate_pct",
+          "bot_spike_detected",
+          "suspicious_dates",
+          "growth_verdict",
+          "history"
+        ],
+        "title": "HistoricalGrowthResponse"
+      },
+      "InfluencerAuditResponse": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "platform": {
+            "type": "string",
+            "title": "Platform"
+          },
+          "analyzed_at": {
+            "type": "string",
+            "title": "Analyzed At"
+          },
+          "cached": {
+            "type": "boolean",
+            "title": "Cached"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/InfluencerMetrics"
+          },
+          "authenticity_score": {
+            "type": "integer",
+            "title": "Authenticity Score",
+            "description": "0-100 score: >75 Genuine, <45 Suspected Bot/Fake followers"
+          },
+          "growth_status": {
+            "type": "string",
+            "title": "Growth Status",
+            "description": "VIRAL_SURGE, STEADY_GROWTH, STAGNANT, LOSING_FOLLOWERS"
+          },
+          "risk_level": {
+            "type": "string",
+            "title": "Risk Level",
+            "description": "LOW, MODERATE, HIGH (Advertising risk)"
+          },
+          "commercial_recommendation": {
+            "type": "string",
+            "title": "Commercial Recommendation",
+            "description": "Actionable recommendation for marketing brands/agencies"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "platform",
+          "analyzed_at",
+          "cached",
+          "metrics",
+          "authenticity_score",
+          "growth_status",
+          "risk_level",
+          "commercial_recommendation"
+        ],
+        "title": "InfluencerAuditResponse"
+      },
+      "InfluencerMetrics": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "platform": {
+            "type": "string",
+            "title": "Platform"
+          },
+          "followers": {
+            "type": "integer",
+            "title": "Followers"
+          },
+          "following": {
+            "type": "integer",
+            "title": "Following"
+          },
+          "total_posts": {
+            "type": "integer",
+            "title": "Total Posts"
+          },
+          "engagement_rate_pct": {
+            "type": "number",
+            "title": "Engagement Rate Pct",
+            "description": "Likes + Comments / Followers ratio"
+          },
+          "average_likes": {
+            "type": "integer",
+            "title": "Average Likes"
+          },
+          "average_comments": {
+            "type": "integer",
+            "title": "Average Comments"
+          },
+          "average_views": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Average Views"
+          },
+          "estimated_reach": {
+            "type": "integer",
+            "title": "Estimated Reach"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "platform",
+          "followers",
+          "following",
+          "total_posts",
+          "engagement_rate_pct",
+          "average_likes",
+          "average_comments",
+          "estimated_reach"
+        ],
+        "title": "InfluencerMetrics"
+      },
+      "NicheLeader": {
+        "properties": {
+          "rank": {
+            "type": "integer",
+            "title": "Rank"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "niche": {
+            "type": "string",
+            "title": "Niche"
+          },
+          "followers": {
+            "type": "integer",
+            "title": "Followers"
+          },
+          "engagement_rate_pct": {
+            "type": "number",
+            "title": "Engagement Rate Pct"
+          },
+          "viral_score": {
+            "type": "integer",
+            "title": "Viral Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rank",
+          "username",
+          "niche",
+          "followers",
+          "engagement_rate_pct",
+          "viral_score"
+        ],
+        "title": "NicheLeader"
+      },
+      "NicheLeadersResponse": {
+        "properties": {
+          "niche": {
+            "type": "string",
+            "title": "Niche"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "total_found": {
+            "type": "integer",
+            "title": "Total Found"
+          },
+          "creators": {
+            "items": {
+              "$ref": "#/components/schemas/NicheLeader"
+            },
+            "type": "array",
+            "title": "Creators"
+          }
+        },
+        "type": "object",
+        "required": [
+          "niche",
+          "updated_at",
+          "total_found",
+          "creators"
+        ],
+        "title": "NicheLeadersResponse"
+      },
+      "TrendingHashtag": {
+        "properties": {
+          "tag": {
+            "type": "string",
+            "title": "Tag",
+            "description": "Hashtag string without #"
+          },
+          "views_24h": {
+            "type": "integer",
+            "title": "Views 24H",
+            "description": "Total views generated in the past 24 hours"
+          },
+          "growth_rate_pct": {
+            "type": "number",
+            "title": "Growth Rate Pct",
+            "description": "Percentage growth over previous period"
+          },
+          "niche": {
+            "type": "string",
+            "title": "Niche",
+            "description": "Primary category: fitness, finance, tech, fashion, humor"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tag",
+          "views_24h",
+          "growth_rate_pct",
+          "niche"
+        ],
+        "title": "TrendingHashtag"
+      },
+      "TrendingSound": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "description": "Name/Title of the viral audio"
+          },
+          "author": {
+            "type": "string",
+            "title": "Author",
+            "description": "Original creator or artist"
+          },
+          "video_count": {
+            "type": "integer",
+            "title": "Video Count",
+            "description": "Total videos made with this audio"
+          },
+          "velocity_24h_pct": {
+            "type": "number",
+            "title": "Velocity 24H Pct",
+            "description": "24-hour usage growth velocity percentage"
+          },
+          "is_breakout": {
+            "type": "boolean",
+            "title": "Is Breakout",
+            "description": "Whether this sound is currently breaking out exponentially"
+          },
+          "audio_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Url",
+            "description": "Direct preview or link to audio"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "author",
+          "video_count",
+          "velocity_24h_pct",
+          "is_breakout"
+        ],
+        "title": "TrendingSound"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "ViralTrendsResponse": {
+        "properties": {
+          "platform": {
+            "type": "string",
+            "title": "Platform",
+            "description": "Source platform: tiktok, instagram, all",
+            "default": "all"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          },
+          "cached": {
+            "type": "boolean",
+            "title": "Cached"
+          },
+          "trending_sounds": {
+            "items": {
+              "$ref": "#/components/schemas/TrendingSound"
+            },
+            "type": "array",
+            "title": "Trending Sounds"
+          },
+          "trending_hashtags": {
+            "items": {
+              "$ref": "#/components/schemas/TrendingHashtag"
+            },
+            "type": "array",
+            "title": "Trending Hashtags"
+          },
+          "viral_hooks_today": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Viral Hooks Today",
+            "description": "Top 5 psychological video hooks trending today"
+          }
+        },
+        "type": "object",
+        "required": [
+          "generated_at",
+          "cached",
+          "trending_sounds",
+          "trending_hashtags",
+          "viral_hooks_today"
+        ],
+        "title": "ViralTrendsResponse"
+      },
+      "ViralityPredictionRequest": {
+        "properties": {
+          "hook_text": {
+            "type": "string",
+            "title": "Hook Text",
+            "description": "First 3 seconds caption/hook text of the video",
+            "example": "Nobody is talking about this secret AI tool..."
+          },
+          "duration_seconds": {
+            "type": "integer",
+            "maximum": 300.0,
+            "minimum": 3.0,
+            "title": "Duration Seconds",
+            "description": "Length of the short-form video in seconds",
+            "default": 18
+          },
+          "niche": {
+            "type": "string",
+            "title": "Niche",
+            "description": "Category: tech, finance, fitness, humor, lifestyle",
+            "default": "tech"
+          },
+          "target_platform": {
+            "type": "string",
+            "title": "Target Platform",
+            "description": "tiktok, instagram_reels, youtube_shorts",
+            "default": "tiktok"
+          },
+          "has_trending_audio": {
+            "type": "boolean",
+            "title": "Has Trending Audio",
+            "description": "Whether video pairs with breakout trending sound",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "hook_text"
+        ],
+        "title": "ViralityPredictionRequest"
+      },
+      "ViralityPredictionResponse": {
+        "properties": {
+          "analyzed_at": {
+            "type": "string",
+            "title": "Analyzed At"
+          },
+          "virality_score": {
+            "type": "integer",
+            "title": "Virality Score",
+            "description": "0-100 predicted viral probability score"
+          },
+          "virality_tier": {
+            "type": "string",
+            "title": "Virality Tier",
+            "description": "VIRAL_BREAKOUT, HIGH_POTENTIAL, AVERAGE_PERFORMANCE, LOW_REACH"
+          },
+          "predicted_completion_rate_pct": {
+            "type": "number",
+            "title": "Predicted Completion Rate Pct",
+            "description": "Expected percentage of viewers who watch to completion"
+          },
+          "estimated_reach_multiplier": {
+            "type": "number",
+            "title": "Estimated Reach Multiplier",
+            "description": "Expected view multiplier compared to account baseline (e.g. 3.5x)"
+          },
+          "optimal_posting_window_utc": {
+            "type": "string",
+            "title": "Optimal Posting Window Utc",
+            "description": "Highest-traffic algorithmic upload time window"
+          },
+          "detected_psychological_triggers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Detected Psychological Triggers"
+          },
+          "actionable_recommendations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Actionable Recommendations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "analyzed_at",
+          "virality_score",
+          "virality_tier",
+          "predicted_completion_rate_pct",
+          "estimated_reach_multiplier",
+          "optimal_posting_window_utc",
+          "detected_psychological_triggers",
+          "actionable_recommendations"
+        ],
+        "title": "ViralityPredictionResponse"
+      }
+    }
+  }
+}
